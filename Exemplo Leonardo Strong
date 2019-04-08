@@ -1,0 +1,28 @@
+// Contador binário usando os botões do joystick.
+#include "Joystick.h"
+void setup() {
+  // put your setup code here, to run once:
+  Joystick.begin();
+}
+
+void loop() {
+  static unsigned int botoes=0;
+  static char eixoX=0;
+  static char eixoY=0;
+  static unsigned long contador=0;
+
+   if(millis() >= contador + 25){
+    botoes++;
+    eixoX++;
+    eixoY++;
+    // put your main code here, to run repeatedly:
+    Joystick.setXAxis( eixoX );
+    Joystick.setYAxis( eixoY );
+    char i;
+    for(i=0;i<32;i++){
+      Joystick.setButton(i,bitRead(botoes,i));
+    };
+    contador=millis();
+   };
+
+}
